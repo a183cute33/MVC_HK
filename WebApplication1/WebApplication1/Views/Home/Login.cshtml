@@ -1,7 +1,35 @@
-﻿
+﻿@model WebApplication1.ViewModel.LoginVM
 @{
     ViewBag.Title = "Login";
 }
 
-<h2>Login</h2>
+@using (Html.BeginForm("Login", "Home", FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.Label("帳號"):
+        @Html.TextBoxFor(x => x.account, "", new { @class = "form-control" })
 
+        @Html.Label("密碼"):
+        @Html.TextBoxFor(x => x.password, "", new { @class = "form-control" })
+    </div>
+    @Html.ValidationSummary()
+    <button type="submit" class="btn btn-primary">新增</button>
+}
+<div>@ViewBag.alert</div>
+<script type="text/javascript">
+    $.validator.addMethod("email", function (value, element, param) {
+        if (value == false) {
+            return true;
+        }
+        var validateState = true;
+        var paramarr = param.split(',');
+        $.each(paramarr, function (i, n) {
+            if (value == n) {
+                validateState = false;
+                return;
+            }
+        });
+        return validateState;
+    });
+    $.validator.unobtrusive.adapters.addSingleVal("email", "input");
+</script>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebApplication1.ViewModel;
 
 namespace WebApplication1.Controllers
 {
@@ -26,8 +27,21 @@ namespace WebApplication1.Controllers
 
             return View();
         }
+
         public ActionResult Login()
         {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Login(LoginVM vm)
+        {
+            if (this.ModelState.IsValid)
+            {
+                ViewBag.alert = "成功";
+                return View();
+            }
+            ViewBag.alert = "失敗";
             return View();
         }
     }
